@@ -1,5 +1,11 @@
 import { WebSocket, CloseEvent } from 'ws';
-import { nanoid } from 'nanoid';
+let nanoid: (size?: number | undefined) => string;
+(async () => {
+  let nanoidModule = await (eval('import("nanoid")') as Promise<
+    typeof import('nanoid')
+  >);
+  nanoid = nanoidModule.nanoid;
+})();
 import Room from './common/utils/room';
 import Socket, { CustomWebSocket } from './common/utils/socket';
 import getIp from './utils/getIp';

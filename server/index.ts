@@ -6,7 +6,13 @@ import QRCode from 'qrcode';
 import instantRouter from './instantRoom';
 import { rooms, wss } from './sockets';
 import getIp from './utils/getIp';
-import { nanoid } from 'nanoid';
+let nanoid: (size?: number | undefined) => string;
+(async () => {
+  let nanoidModule = await (eval('import("nanoid")') as Promise<
+    typeof import('nanoid')
+  >);
+  nanoid = nanoidModule.nanoid;
+})();
 import Room from './common/utils/room';
 import log from './utils/log';
 dotenv.config();
