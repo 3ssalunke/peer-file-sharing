@@ -1,12 +1,12 @@
 FROM node:20-alpine AS base
 WORKDIR /app
 
-COPY ./package*.json ./server/
+COPY ./server/package*.json ./server/
 
 WORKDIR /app/server
 RUN npm install
 
-COPY ./ ./
+COPY ./server ./
 
 ENV NODE_ENV "development"
 ENV ORIGIN=
