@@ -1,8 +1,9 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import http, { OutgoingHttpHeader, OutgoingHttpHeaders } from 'http';
+import http from 'http';
 import QRCode from 'qrcode';
+import instantRouter from './instantRoom';
 import { rooms, wss } from './sockets';
 import getIp from './utils/getIp';
 import { nanoid } from 'nanoid';
@@ -19,6 +20,7 @@ const app = express();
 app.set('trust proxy', TRUST_PROXY);
 app.use(express.json());
 app.use(cors({ origin: CORS_ORIGIN }));
+app.use('/instant-room', instantRouter);
 
 const server = http.createServer(app);
 
