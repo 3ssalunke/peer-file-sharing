@@ -1,3 +1,5 @@
+import './index.scss';
+
 interface FabProps {
   [key: string]: unknown;
   children: React.ReactNode;
@@ -6,11 +8,15 @@ interface FabProps {
   className?: string;
 }
 
-function Fab({ children, text, ...props }: FabProps) {
+function Fab({ children, className, text, variant, ...props }: FabProps) {
   return (
-    <button aria-label={text} {...props}>
+    <button
+      className={`btn fab ${variant} ${className}`}
+      aria-label={text}
+      {...props}
+    >
       {children}
-      <div>{text}</div>
+      <div className="lg-text">{text}</div>
       <slot />
     </button>
   );

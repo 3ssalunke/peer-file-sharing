@@ -7,3 +7,14 @@ services:
     env_file: ./server/.env
     ports:
       - 3030:3030
+    volumes:
+      - ./server:/app/server
+
+  ofs-client:
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile
+    ports:
+      - 5173:5173
+    volumes:
+      - ./client:/app/client

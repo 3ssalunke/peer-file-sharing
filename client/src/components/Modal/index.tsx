@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { XCircle } from 'react-feather';
+import './index.scss';
 
 export interface ModalProps {
   isClosable?: boolean;

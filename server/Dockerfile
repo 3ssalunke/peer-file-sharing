@@ -1,9 +1,11 @@
 FROM node:20-alpine AS base
+
 WORKDIR /app
 
 COPY ./server/package*.json ./server/
 
 WORKDIR /app/server
+RUN npm install -g typescript
 RUN npm install
 
 COPY ./server ./

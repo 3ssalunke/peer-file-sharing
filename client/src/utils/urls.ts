@@ -11,7 +11,7 @@ export default {
       return WS_HOST;
     }
 
-    WS_HOST = `ws://${window.location.host}/ws`;
+    WS_HOST = `ws://localhost:3030/ws`;
     return WS_HOST;
   })(),
   SERVER_HOST: (() => {
@@ -23,7 +23,7 @@ export default {
       return SERVER_HOST;
     }
 
-    SERVER_HOST = `http://${window.location.host}/server`;
+    SERVER_HOST = `http://localhost:3030/server`;
     return SERVER_HOST;
   })(),
 };

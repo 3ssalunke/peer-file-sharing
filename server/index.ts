@@ -30,7 +30,7 @@ app.use('/instant-room', instantRouter);
 
 const server = http.createServer(app);
 
-app.get('/', (_, res) => {
+app.get('/server', (_, res) => {
   res.send({
     message: 'Ofs websockets running',
     rooms: Object.keys(rooms).length,
@@ -41,7 +41,7 @@ app.get('/', (_, res) => {
   });
 });
 
-app.get('/sse/local-peers', (req, res) => {
+app.get('/server/sse/local-peers', (req, res) => {
   if (DISABLE_SSE_EVENTS) return res.json([]);
   const ip = getIp(req);
   if (!ip) return res.json([]);
@@ -69,7 +69,7 @@ app.get('/sse/local-peers', (req, res) => {
   });
 });
 
-app.get('/rooms/qrcode', async (req, res) => {
+app.get('/server/rooms/qrcode', async (req, res) => {
   const clientUrl = req.headers.referer as string;
   const room = req.query.room;
 

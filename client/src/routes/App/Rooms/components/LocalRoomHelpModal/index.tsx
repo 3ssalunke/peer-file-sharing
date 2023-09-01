@@ -8,7 +8,7 @@ interface LocalRoomHelpModalProps extends Omit<ModalProps, 'children'> {
 function LocalRoomHelpModal({ onRoomJoin, ...props }: LocalRoomHelpModalProps) {
   return (
     <Modal {...props}>
-      <div>
+      <div className="local-room-help">
         <h2>Local Network Room</h2>
         <p>
           Local network room creates a private and isolated room among devices

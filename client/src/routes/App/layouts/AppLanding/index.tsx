@@ -1,7 +1,8 @@
 import { memo, useContext, MouseEventHandler } from 'react';
 import { ArrowDownCircle, Gift, Grid, Settings } from 'react-feather';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { PWAInstall } from '../../context/PWAInstall';
+import './index.scss';
 
 interface AppLandingProps {
   children: React.ReactNode;
@@ -12,18 +13,18 @@ interface AppLandingProps {
 const Navigation = memo(function Navigation() {
   return (
     <>
-      <Link to="/app/">
+      <NavLink to="/app/" className="nav-item">
         <Grid />
-        <span>Rooms</span>
-      </Link>
-      <Link to="/app/settings">
+        <span className="label">Rooms</span>
+      </NavLink>
+      <NavLink to="/app/settings" className="nav-item">
         <Settings />
-        <span>Settings</span>
-      </Link>
-      <Link to="/app/support">
+        <span className="label">Settings</span>
+      </NavLink>
+      <NavLink to="/app/support" className="nav-item">
         <Gift />
-        <span>Support</span>
-      </Link>
+        <span className="label">Support</span>
+      </NavLink>
     </>
   );
 });
@@ -54,25 +55,29 @@ function AppLanding({
   };
 
   return (
-    <div>
-      <header>
-        <div>
-          <h1>{title}</h1>
-          <div>
+    <div className="app-container app-landing-container">
+      <header className="app-header">
+        <div className="title-nav-wrapper">
+          <h1 className="title">{title}</h1>
+          <div className="nav">
             {installable && (
-              <button onClick={handleInstall}>
+              <button
+                className="nav-item install"
+                title="Install OFS"
+                onClick={handleInstall}
+              >
                 <ArrowDownCircle />
-                <span>Install</span>
+                <span className="label">Install</span>
               </button>
             )}
             <Navigation />
           </div>
         </div>
-        <p>{subtitle}</p>
+        <p className="subtitle">{subtitle}</p>
       </header>
       {children}
 
-      <div>
+      <div className="tab-links">
         <Navigation />
       </div>
     </div>

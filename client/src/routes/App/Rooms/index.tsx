@@ -15,9 +15,10 @@ import pluralize from '../../../utils/pluralize';
 import LocalRoomHelpModal from './components/LocalRoomHelpModal';
 import urls from '../../../utils/urls';
 import AppLanding from '../layouts/AppLanding';
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Fab from '../../../components/Fab';
 import NewRoomModal from './components/NewRoomModal';
+import './index.scss';
 
 export type Peer = {
   name: string;
@@ -64,17 +65,20 @@ const RoomsList: FC<RoomListProps> = ({ isOnline, onRoomJoin }) => {
     return (
       <>
         {!!queuedFiles.length && (
-          <div>
+          <div
+            className="message"
+            style={{ marginTop: '0', marginBottom: '2.5rem' }}
+          >
             Join a room to share the selected{' '}
             {pluralize(queuedFiles.length, 'file', 'files')}
           </div>
         )}
-        <ul>
+        <ul className="recent-rooms-list">
           <RoomContainer
             highlighted={localPeers.length > 0}
             as="li"
             role="link"
-            tabindex="0"
+            tabIndex="0"
             onClick={() => onRoomJoin('')}
           >
             <div>
@@ -135,14 +139,15 @@ function Rooms({ isOnline }: { isOnline: boolean }): React.ReactNode {
     'ofs',
     ({ user }) => user.name
   );
+  const navigate = useNavigate();
 
   const handleNewRoom = useCallback(
     (room: string) => {
       setModal(false);
       const roomURL = room.trim().replace(/ /g, '-').toLowerCase();
-      redirect(`/app/t/${roomURL}`);
+      navigate(`/app/t/${roomURL}`);
     },
-    [setModal]
+    [setModal, navigate]
   );
 
   return (
@@ -150,12 +155,16 @@ function Rooms({ isOnline }: { isOnline: boolean }): React.ReactNode {
       title={`Hi, ${username}`}
       subtitle="Join or create a room to share files"
     >
-      <main>
-        <section>
-          <h2>Recent Rooms</h2>
+      <main className="rooms">
+        <section className="recent-rooms">
+          <h2 className="section-title">Recent Rooms</h2>
           <RoomsList isOnline={isOnline} onRoomJoin={handleNewRoom} />
           {isOnline && (
-            <Fab text="New Room" onClick={() => setModal(false)}>
+            <Fab
+              text="New Room"
+              className="fab-new-room"
+              onClick={() => setModal(true)}
+            >
               <Plus />
             </Fab>
           )}

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, redirect } from 'react-router-dom';
+import scriptjs from 'scriptjs';
 import { QueuedFiles } from './context/QueuedFiles';
 import useSWMessage from '../../hooks/useSWMessage';
-import constants from '../../constants';
+import constants from '../../../common/constants';
 import { PWAInstallProvider } from './context/PWAInstall';
 import Rooms, { Room } from './Rooms';
 import useOnline from '../../hooks/useOnline';
@@ -11,6 +12,8 @@ import {
   useLocalStorageSelector,
 } from 'react-localstorage-hooks';
 import NewUser from './NewUser';
+import './index.scss';
+import FileTransfer from './FileTransfer';
 
 export interface LocalStorageData {
   user: {
@@ -51,8 +54,6 @@ const App = () => {
 
   useEffect(() => {
     if (!isRegistered) return;
-    /* eslint-disable @typescript-eslint/no-var-requires */
-    const scriptjs = require('scriptjs');
 
     scriptjs(
       [
@@ -70,7 +71,7 @@ const App = () => {
     if (isRegistered && !isOnline) {
       redirect('/app');
     }
-  });
+  }, [isRegistered, isOnline]);
 
   if (!isRegistered) {
     return <NewUser />;
@@ -80,7 +81,8 @@ const App = () => {
     <QueuedFiles.Provider value={{ queuedFiles, setQueuedFiles }}>
       <PWAInstallProvider>
         <Routes>
-          <Route path="/app/" element={<Rooms isOnline={isOnline} />} />
+          <Route path="/" element={<Rooms isOnline={isOnline} />} />
+          <Route path="/t/:room" element={<FileTransfer />} />
         </Routes>
       </PWAInstallProvider>
     </QueuedFiles.Provider>

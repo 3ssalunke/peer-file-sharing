@@ -1,6 +1,7 @@
 import React from 'react';
 import getFirstCharacterFromString from '../../../../../utils/getFirstCharacterFromString';
 import { Peer } from '../..';
+import './index.scss';
 
 interface GenericProps {
   as?: keyof React.JSX.IntrinsicElements;

@@ -21,7 +21,7 @@ function NewRoomModal({ onNewRoom, isOpen, ...props }: NewRoomModalProps) {
 
   return (
     <Modal isOpen={isOpen} {...props}>
-      <div>
+      <div className="join-room">
         <h2>Create public room</h2>
         <p>
           Public rooms allow file sharing to any device connected to the
@@ -41,16 +41,20 @@ function NewRoomModal({ onNewRoom, isOpen, ...props }: NewRoomModalProps) {
             }}
             disabled={isLoading}
           />
-          <button type="submit" disabled={isLoading}>
+          <button className="btn wide" type="submit" disabled={isLoading}>
             Join Room
           </button>
         </form>
-        <hr />
-        <p>
+        <hr className="divider" />
+        <p className="instant-room-helper">
           Instant Rooms are easy to remember room names that don't clash with
           existing rooms.
         </p>
-        <button onClick={getInstantRoom} disabled={isLoading}>
+        <button
+          className="btn outlined wide"
+          onClick={getInstantRoom}
+          disabled={isLoading}
+        >
           <Loader size={18} />
           {isLoading ? 'Joining' : 'Join Instant Room'}
         </button>
